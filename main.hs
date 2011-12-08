@@ -5,7 +5,7 @@ test :: GraghInfo
 test = GraghInfo {width = 600,height = 400,
                   func = sin ,fcolor = Color3 0 1.0 0.2,
                   x_axis = 200,y_axis = 300,
-                  px = 50,py = 200}
+                  px = 50,py = 400}
 
 main :: IO()
 main

@@ -48,9 +48,10 @@ drawGragh info
 calcPos :: GraghInfo -> Float -> Vertex2 GLfloat
 calcPos info = \x -> Vertex2 x (graghFunc info x)
 
-trans :: GraghInfo -> Float -> Float
-trans info x = (x * width info) / 2 / px info
+transX :: GraghInfo -> Float -> Float
+transX info x = (x * width info) / 2 / px info
 
 graghFunc :: GraghInfo -> Float -> GLfloat
-graghFunc info (trans info -> x')
- = (func info) x'
+graghFunc info (transX info -> x')
+ = let y' = (func info) x'
+   in  (y' * height info) / 2 / py info
