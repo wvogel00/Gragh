@@ -11,16 +11,22 @@ test2 = GraghInfo {width = 600,height = 400,
                    func = (^2) ,fcolor = Color3 0 1.0 0.2,
                    x_axis = 200,y_axis = 300,
                    px = 100,py = 400}
+test3 :: GraghInfo
+test3 = GraghInfo {width = 600,height = 400,
+                   func =id ,fcolor = Color3 0 1.0 0.2,
+                   x_axis = 200,y_axis = 300,
+                   px = 100,py = 400}
+
 
 
 main :: IO()
 main
  = do getArgsAndInitialize
-      initialWindowSize $= Size (floor $ width test2) (floor $height test2)
+      initialWindowSize $= Size (floor $ width test3) (floor $height test3)
       initialWindowPosition $= Position 100 100
       initialDisplayMode $= [DoubleBuffered , RGBMode]
 
-      createWindow "gragh wigh Haskell"
+      createWindow "Gragh with Haskell"
 
-      displayCallback $= drawGragh test2
+      displayCallback $= drawGragh test3
       mainLoop
