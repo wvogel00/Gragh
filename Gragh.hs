@@ -8,7 +8,7 @@ data GraghInfo
         width :: Float,
         height:: Float,
         func  :: Float -> Float,
-        fcolor:: Color3 GLint,
+        fcolor:: Color3 GLdouble,
         x_axis::Float,
         y_axis::Float,
         px    ::Float
@@ -33,8 +33,10 @@ drawGragh info
       clear [ColorBuffer]
 
       drawAxis (width info) (height info) (x_axis info) (y_axis info)
-     -- preservingMatrix $ do
-     --   color (fcolor info)
-     --   renderPrimitive Points $ mapM_ (vertex.uncurry)
-     --     [(0.5 0.5)]
+      preservingMatrix $ do
+        color (fcolor info)
+        renderPrimitive Points $ mapM_ vertex
+          $ map (\(x,y) -> Vertex2 x y) $ map (\x -> ((x,(func info) x))) [0,0.1..1.0]
+          --[Vertex2 0.8 0.8 :: Vertex2 GLfloat]
+     
       swapBuffers

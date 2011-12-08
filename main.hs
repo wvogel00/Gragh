@@ -3,7 +3,7 @@ import Graphics.UI.GLUT
 
 test :: GraghInfo
 test = GraghInfo {width = 600,height = 400,
-                  func = sin ,fcolor = Color3 100 100 100,
+                  func = sin ,fcolor = Color3 0 1.0 0.2,
                   x_axis = 200,y_axis = 300 , px = 50}
 
 main :: IO()
