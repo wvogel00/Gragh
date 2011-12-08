@@ -36,11 +36,9 @@ drawGragh info
 
       preservingMatrix $ do
         drawAxis (width info) (height info) (x_axis info) (y_axis info)
-        preservingMatrix $ do
-          color (fcolor info)
-          renderPrimitive Points $ mapM_ vertex
---          $ map (\(x,y) -> Vertex2 x y) 
---              $ map (\x -> ((x,(func info) x))) [0,0.1..1.0]
+      preservingMatrix $ do
+        color (fcolor info)
+        renderPrimitive Points $ mapM_ vertex
             $ map (calcPos info) [(-1.0),(-0.999) .. 1.0]
 
       swapBuffers
