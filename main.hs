@@ -1,4 +1,5 @@
 import Gragh
+import Data.IORef
 import Graphics.UI.GLUT
 
 test1 :: GraghInfo
@@ -21,12 +22,15 @@ test3 = GraghInfo {width = 600,height = 400,
 
 main :: IO()
 main
- = do getArgsAndInitialize
-      initialWindowSize $= Size (floor $ width test3) (floor $height test3)
+ = do gragh <- newIORef test1
+      gragh' <- readIORef gragh
+      getArgsAndInitialize
+      initialWindowSize $= Size (floor $ width gragh') (floor $height gragh')
       initialWindowPosition $= Position 100 100
       initialDisplayMode $= [DoubleBuffered , RGBMode]
 
       createWindow "Gragh with Haskell"
 
-      displayCallback $= drawGragh test3
+      displayCallback $= drawGragh gragh
+      keyboardMouseCallback $= Just (moveGragh gragh)
       mainLoop
