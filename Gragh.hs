@@ -1,3 +1,5 @@
+{-# LANGUAGE ViewPatterns  #-}
+
 module Gragh where
 
 import Graphics.UI.GLUT
@@ -46,6 +48,9 @@ drawGragh info
 calcPos :: GraghInfo -> Float -> Vertex2 GLfloat
 calcPos info = \x -> Vertex2 x (graghFunc info x)
 
+trans :: GraghInfo -> Float -> Float
+trans info x = (x * width info) / 2 / px info
+
 graghFunc :: GraghInfo -> Float -> GLfloat
-graghFunc info x
- = (func info) x
+graghFunc info (trans info -> x')
+ = (func info) x'
