@@ -11,13 +11,13 @@ data GraghInfo
         fcolor:: Color3 GLdouble,
         x_axis::Float,
         y_axis::Float,
-        px    ::Float
+        px    ::Float,
+        py    ::Float
     }
 
 drawAxis :: Float -> Float -> Float -> Float -> IO()
 drawAxis w h x y
  = do
-    preservingMatrix $ do	-- x軸描画
       color (Color3 1.0 1.0 1.0 :: Color3 GLdouble)
       renderPrimitive LineStrip $ mapM_ vertex
        [ Vertex2 ((w-y)/w-0.5)  1.0,
@@ -32,11 +32,20 @@ drawGragh info
  = do
       clear [ColorBuffer]
 
-      drawAxis (width info) (height info) (x_axis info) (y_axis info)
       preservingMatrix $ do
-        color (fcolor info)
-        renderPrimitive Points $ mapM_ vertex
-          $ map (\(x,y) -> Vertex2 x y) $ map (\x -> ((x,(func info) x))) [0,0.1..1.0]
-          --[Vertex2 0.8 0.8 :: Vertex2 GLfloat]
-     
+        drawAxis (width info) (height info) (x_axis info) (y_axis info)
+        preservingMatrix $ do
+          color (fcolor info)
+          renderPrimitive Points $ mapM_ vertex
+--          $ map (\(x,y) -> Vertex2 x y) 
+--              $ map (\x -> ((x,(func info) x))) [0,0.1..1.0]
+            $ map (calcPos info) [(-1.0),(-0.999) .. 1.0]
+
       swapBuffers
+
+calcPos :: GraghInfo -> Float -> Vertex2 GLfloat
+calcPos info = \x -> Vertex2 x (graghFunc info x)
+
+graghFunc :: GraghInfo -> Float -> GLfloat
+graghFunc info x
+ = (func info) x
