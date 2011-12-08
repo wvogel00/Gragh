@@ -3,7 +3,6 @@
 module Gragh where
 
 import Graphics.UI.GLUT
-import Data.IORef
 
 data GraghInfo
   = GraghInfo {
