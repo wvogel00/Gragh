@@ -15,7 +15,7 @@ test2 = GraghInfo {width = 600,height = 400,
 test3 :: GraghInfo
 test3 = GraghInfo {width = 600,height = 400,
                    func= \x->x*(x-3) ,fcolor = Color3 0 1.0 0.2,
-                   x_axis = 200,y_axis = 300,
+                   x_axis = 200,y_axis = 100,
                    px = 50,py = 600}
 
 
