@@ -14,15 +14,15 @@ test2 = GraghInfo {width = 600,height = 400,
                    px = 100,py = 400}
 test3 :: GraghInfo
 test3 = GraghInfo {width = 600,height = 400,
-                   func =id ,fcolor = Color3 0 1.0 0.2,
+                   func= \x->x*(x-3) ,fcolor = Color3 0 1.0 0.2,
                    x_axis = 200,y_axis = 300,
-                   px = 100,py = 400}
+                   px = 50,py = 600}
 
 
 
 main :: IO()
 main
- = do gragh <- newIORef test1
+ = do gragh <- newIORef test3
       gragh' <- readIORef gragh
       getArgsAndInitialize
       initialWindowSize $= Size (floor $ width gragh') (floor $height gragh')
