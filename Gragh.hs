@@ -46,7 +46,7 @@ drawGragh info
       swapBuffers
 
 xList :: GraghInfo -> [Float]
-xList info = map (f (width info) (y_axis info))[(-1.0),(-0.999)..1.0]
+xList info = map (f (width info) (y_axis info))[(-3.0),(-2.999)..3.0]
   where f w y_axis =  (/w).(+y_axis).(/2).(*w) 
 --座標計算
 calcPos :: GraghInfo -> Float -> Vertex2 GLfloat
