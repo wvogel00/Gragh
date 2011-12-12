@@ -32,18 +32,17 @@ drawAxis w h x y
 
 
 --描画コールバック
-drawGragh :: IORef GraghInfo -> IO()
+drawGragh :: GraghInfo -> IO()
 drawGragh info
  = do
-      info' <- readIORef info
       clear [ColorBuffer]
       preservingMatrix $ do
-        drawAxis (width info') (height info') (x_axis info') (y_axis info')
+        drawAxis (width info) (height info) (x_axis info) (y_axis info)
       preservingMatrix $ do
-        color (fcolor info')
+        color (fcolor info)
         renderPrimitive Points $ mapM_ vertex
 --            $ map (calcPos info') [(-1.0),(-0.999) .. 1.0]
-            $ map (calcPos info') $ xList info'
+            $ map (calcPos info) $ xList info
       swapBuffers
 
 xList :: GraghInfo -> [Float]
@@ -62,14 +61,6 @@ graghFunc :: GraghInfo -> Float -> GLfloat
 graghFunc info (transX info -> x')
  = let y' = (func info) x'
    in  (y' * height info) / 2 / py info
-
---キー入力のコールバック関数
---moveGragh ::IORef GraghInfo -> key -> KeyState -> Modifiers -> Position -> IO()
-moveGragh info (Char 'q') Down _ _ = modifyIORef info (\i -> i {x_axis=100+(x_axis i)})
-moveGragh info (SpecialKey KeyDown) Down _ _
-  = modifyIORef info (\i -> i{x_axis = (x_axis i) - 50})
-moveGragh info (SpecialKey KeyUp) Down _ _ = exitWith ExitSuccess
-moveGragh _ _ _ _ _ = return ()
 
 --テキスト表示
 drawText x y str =

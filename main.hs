@@ -18,19 +18,14 @@ test3 = GraghInfo {width = 600,height = 400,
                    x_axis = 200,y_axis = 100,
                    px = 50,py = 600}
 
-
-
 main :: IO()
 main
- = do gragh <- newIORef test3
-      gragh' <- readIORef gragh
-      getArgsAndInitialize
-      initialWindowSize $= Size (floor $ width gragh') (floor $height gragh')
+ = do getArgsAndInitialize
+      initialWindowSize $= Size (floor $ width test1) (floor $height test1)
       initialWindowPosition $= Position 100 100
       initialDisplayMode $= [DoubleBuffered , RGBMode]
 
       createWindow "Gragh with Haskell"
 
-      displayCallback $= drawGragh gragh
-      keyboardMouseCallback $= Just (moveGragh gragh)
+      displayCallback $= drawGragh test1
       mainLoop
