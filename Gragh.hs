@@ -10,10 +10,10 @@ data GraghInfo
         height:: Float,
         func  :: Float -> Float,
         fcolor:: Color3 GLdouble,
-        x_axis::Float,
-        y_axis::Float,
-        px    ::Float,
-        py    ::Float
+        x_axis:: Float,
+        y_axis:: Float,
+        px    :: Float,
+        py    :: Float
     }
 
 --軸描画
