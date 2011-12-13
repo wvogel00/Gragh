@@ -3,7 +3,6 @@
 module Gragh where
 
 import Graphics.UI.GLUT
-import System.Exit
 
 data GraghInfo
   = GraghInfo {
@@ -29,7 +28,6 @@ drawAxis w h x y
        [ Vertex2  1.0   ((h/2-x)/h*2),
          Vertex2 (-1.0) ((h/2-x)/h*2) :: Vertex2 GLfloat]
 
-
 --描画コールバック
 drawGragh :: GraghInfo -> IO()
 drawGragh info
@@ -40,9 +38,9 @@ drawGragh info
       preservingMatrix $ do
         color (fcolor info)
         renderPrimitive Points $ mapM_ vertex
---            $ map (calcPos info') [(-1.0),(-0.999) .. 1.0]
             $ map (calcPos info) $ xList (width info)
       swapBuffers
+
 --描画するx座標のリスト
 xList :: Float -> [Float]
 xList width = [(-1.0),(-1.0+0.5/width)..1.0]
@@ -53,13 +51,13 @@ calcPos info = \x -> Vertex2 x (graghFunc info x)
 
 --xの座標系変換
 transX :: GraghInfo -> Float -> Float
-transX info x = (x*width info/2+y_axis info)/y_axis info
+transX info x = (x*width info/2+width info/2-y_axis info)/px info
 
 --func info -> y
 graghFunc :: GraghInfo -> Float -> GLfloat
 graghFunc info (transX info -> x')
  = let y' = (func info) x'
-   in  (y'*height info / 2 + x_axis info) /x_axis info
+   in  (y'*py info*2+height info-2*x_axis info)/height info
 
 --テキスト表示
 drawText x y str =
